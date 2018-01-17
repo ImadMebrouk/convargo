@@ -173,16 +173,16 @@ function DecreasePrice()
              reduction =0;
           }
           else if(deliveries[i].volume < 10){
-              reduction = deliveries[i].price* 0.1
+              reduction = truckers[j].pricePerVolume* 0.1
           }
           else if(deliveries[i].volume < 25){
-              reduction = deliveries[i].price* 0.3
+              reduction = truckers[j].pricePerVolume* 0.3
           }
           else{
-                reduction = deliveries[i].price* 0.5
+                reduction = truckers[j].pricePerVolume* 0.5
           }
 
-        deliveries[i].price -= reduction;
+        truckers[j].pricePerVolume -= reduction;
         }
       }
     }
@@ -194,7 +194,7 @@ function CommissionComputing()
   for(var i =0; i < Object.keys(deliveries).length; i++){
         var commission = deliveries[i].price*0.3;
         var insuranceCom = commission/2;
-        var treasuryCom = Math.floor(deliveries[i].distance/500);
+        var treasuryCom = Math.floor(deliveries[i].distance/500)+1;
         var convargoCom = commission - insuranceCom -treasuryCom;
 
         deliveries[i].commission.convargo = convargoCom;
@@ -208,6 +208,7 @@ function CommissionComputing()
 
 shippingPrice();
 DecreasePrice();
+shippingPrice();
 CommissionComputing();
 console.log(truckers);
 console.log(deliveries);
