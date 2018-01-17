@@ -19,6 +19,8 @@ var truckers = [{
   'pricePerVolume': 10
 }];
 
+
+
 //list of current shippings
 //useful for ALL exercises
 //The `price` is updated from exercice 1
@@ -141,6 +143,23 @@ const actors = [{
   }]
 }];
 
+function shippingPrice() {
+var distance=0;
+var volume=0;
+for(var i =0; i < Object.keys(deliveries).length; i++){
+  for(var i =0; i < Object.keys(truckers).length; i++){
+      if(deliveries[i].truckerId == truckers[i].id)
+      {
+      distance = deliveries[i].distance*truckers[i].pricePerKm;
+      volume =deliveries[i].volume*truckers[i].pricePerVolume;
+
+      deliveries[i].price = distance + volume;
+      }
+    }
+  }
+}
+
+shippingPrice();
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
