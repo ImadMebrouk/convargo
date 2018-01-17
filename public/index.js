@@ -38,7 +38,8 @@ var deliveries = [{
   'price': 0,
   'commission': {
     'insurance': 0,
-    'convargo': 0
+    'convargo': 0,
+    'treasury': 0
   }
 }, {
   'id': '65203b0a-a864-4dea-81e2-e389515752a8',
@@ -52,7 +53,8 @@ var deliveries = [{
   'price': 0,
   'commission': {
     'insurance': 0,
-    'convargo': 0
+    'convargo': 0,
+    'treasury': 0
   }
 }, {
   'id': '94dab739-bd93-44c0-9be1-52dd07baa9f6',
@@ -66,7 +68,8 @@ var deliveries = [{
   'price': 0,
   'commission': {
     'insurance': 0,
-    'convargo': 0
+    'convargo': 0,
+    'treasury': 0
   }
 }];
 
@@ -186,8 +189,26 @@ function DecreasePrice()
 
 }
 
+function CommissionComputing()
+{
+  for(var i =0; i < Object.keys(deliveries).length; i++){
+        var commission = deliveries[i].price*0.3;
+        var insuranceCom = commission/2;
+        var treasuryCom = Math.floor(deliveries[i].distance/500);
+        var convargoCom = commission - insuranceCom -treasuryCom;
+
+        deliveries[i].commission.convargo = convargoCom;
+        deliveries[i].commission.insurance = insuranceCom;
+        deliveries[i].commission.treasury = treasuryCom;
+
+      }
+
+
+}
+
 shippingPrice();
 DecreasePrice();
+CommissionComputing();
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
