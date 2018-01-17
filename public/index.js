@@ -202,14 +202,30 @@ function CommissionComputing()
         deliveries[i].commission.treasury = treasuryCom;
 
       }
-
-
 }
 
-shippingPrice();
+function DeductibleCharge()
+{
+  var charge =0;
+  for(var i =0; i < Object.keys(deliveries).length; i++){
+
+      if(deliveries[i].options.deductibleReduction ==true)
+      {
+         charge = Math.floor(deliveries[i].volume);
+
+          deliveries[i].commission.convargo += charge;
+          deliveries[i].price += charge;
+
+      }
+
+      }
+}
+
+
 DecreasePrice();
 shippingPrice();
 CommissionComputing();
+DeductibleCharge();
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
