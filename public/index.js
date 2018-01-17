@@ -147,11 +147,11 @@ function shippingPrice() {
 var distance=0;
 var volume=0;
 for(var i =0; i < Object.keys(deliveries).length; i++){
-  for(var i =0; i < Object.keys(truckers).length; i++){
-      if(deliveries[i].truckerId == truckers[i].id)
+  for(var j =0; j < Object.keys(truckers).length; j++){
+      if(deliveries[i].truckerId == truckers[j].id)
       {
-      distance = deliveries[i].distance*truckers[i].pricePerKm;
-      volume =deliveries[i].volume*truckers[i].pricePerVolume;
+      distance = deliveries[i].distance*truckers[j].pricePerKm;
+      volume =deliveries[i].volume*truckers[j].pricePerVolume;
 
       deliveries[i].price = distance + volume;
       }
@@ -159,7 +159,35 @@ for(var i =0; i < Object.keys(deliveries).length; i++){
   }
 }
 
+function DecreasePrice()
+{
+  var reduction = 0;
+  for(var i =0; i < Object.keys(deliveries).length; i++){
+    for(var j =0; j < Object.keys(truckers).length; j++){
+        if(deliveries[i].truckerId == truckers[j].id)
+        {
+          if(deliveries[i].volume < 5){
+             reduction =0;
+          }
+          else if(deliveries[i].volume < 10){
+              reduction = deliveries[i].price* 0.1
+          }
+          else if(deliveries[i].volume < 25){
+              reduction = deliveries[i].price* 0.3
+          }
+          else{
+                reduction = deliveries[i].price* 0.5
+          }
+
+        deliveries[i].price -= reduction;
+        }
+      }
+    }
+
+}
+
 shippingPrice();
+DecreasePrice();
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
